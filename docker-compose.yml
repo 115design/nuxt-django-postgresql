@@ -7,7 +7,7 @@ services:
   nginx:
     restart: always
     image: nginx
-    container_name: nuxt_django.nginx
+    container_name: nuxt_django_postgresql.nginx
     ports:
       - "8000:8000"
     volumes:
@@ -20,7 +20,7 @@ services:
   postgresql:
     build:
       context: ./db
-    container_name: nuxt_django.postgresql
+    container_name: nuxt_django_postgresql.postgresql
     ports:
       - "5432:5432"
     environment:
@@ -33,7 +33,7 @@ services:
 
   adminer:
     image: adminer
-    container_name: nuxt_django.adminer
+    container_name: nuxt_django_postgresql.adminer
     restart: always
     ports:
       - 8080:8080
@@ -44,7 +44,7 @@ services:
     restart: always
     build:
       context: ./backend
-    container_name: nuxt_django.django
+    container_name: nuxt_django_postgresql.django
     volumes:
       - ./backend:/app
     expose:
@@ -56,7 +56,7 @@ services:
   nuxt:
     build:
       context: ./frontend
-    container_name: nuxt_django.nuxt
+    container_name: nuxt_django_postgresql.nuxt
     volumes:
       - ./frontend:/app
     ports:
