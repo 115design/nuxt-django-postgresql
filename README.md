@@ -8,8 +8,8 @@ Nuxt.js, Django, PostgreSQL, Nginx, Docker, Adminer
     $ make start
     $ make migrate
     $ make create_superuser
-		$ make collect_static
     $ make restart_django
+    $ make collect_static
 		
 Django: http://localhost:8000  
 Adminer: http://localhost:8080  
