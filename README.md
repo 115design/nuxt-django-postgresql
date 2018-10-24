@@ -11,8 +11,8 @@ Nuxt.js, Django, PostgreSQL, Nginx, Docker, Adminer
     $ make restart_django
 		
 Django: http://localhost:8000  
-Nuxt.js: http://localhost:3000  
-Adminer: http://localhost:8080
+Adminer: http://localhost:8080  
+Nuxt.js: http://localhost:3000
 
 ## Author
 
