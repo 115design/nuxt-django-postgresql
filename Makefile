@@ -55,13 +55,17 @@ cmd_django:
 cmd_nuxt:
 	docker-compose exec nuxt bash
 
-cmd_postgresql:
+cmd_db:
 	docker-compose exec postgresql bash
 
-backup_postgresql:
+delete_migrations:
+	find . -path "./backend/**/migrations/*.py" -not -name "__init__.py" | xargs rm -rf
+	find . -path "./backend/**/migrations/__pycache__" | xargs rm -rf
+
+backup_db:
 	docker-compose exec -T postgresql pg_dump -U mysiteuser -w mysite > ./db/backup/postgresql/postgresql-`date +"%Y%m%d"`.sql
 
-restore_postgresql:
+restore_db:
 	docker-compose exec -T postgresql psql -d mysite -U mysiteuser -w < ./db/backup/postgresql/postgresql-${ID}.sql
 
 log_all:
