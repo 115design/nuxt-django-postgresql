@@ -66,7 +66,7 @@ backup_db:
 	docker-compose exec -T postgresql pg_dump -U mysiteuser -w mysite > ./db/backup/postgresql/postgresql-`date +"%Y%m%d"`.sql
 
 restore_db:
-	docker-compose exec -T postgresql psql -d mysite -U mysiteuser -w < ./db/backup/postgresql/postgresql-${ID}.sql
+	docker-compose exec -T postgresql psql -d mysite -U mysiteuser -w < ./db/backup/postgresql/${ID}.sql
 
 log_all:
 	docker-compose logs -tf
