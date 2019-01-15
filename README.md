@@ -6,7 +6,7 @@ Nuxt.js, Django, PostgreSQL, Nginx, Docker, Adminer
     $ git clone https://github.com/115design/nuxt-django-postgresql.git
     $ cd nuxt-django-postgresql
     $ make start
-		$ make make_migrations
+    $ make make_migrations
     $ make migrate
     $ make create_superuser
     $ make restart_django
