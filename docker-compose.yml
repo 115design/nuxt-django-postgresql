@@ -1,4 +1,4 @@
-version: '3.4'
+version: "3.4"
 
 volumes:
   db-data:
@@ -7,9 +7,9 @@ services:
   nginx:
     restart: always
     image: nginx
-    container_name: nuxt_django_postgresql.nginx
+    container_name: nuxt-django-postgresql.nginx
     ports:
-      - "8000:8000"
+      - 8000:8000
     volumes:
       - ./nginx/conf:/etc/nginx/conf.d
       - ./nginx/uwsgi_params:/etc/nginx/uwsgi_params
@@ -20,9 +20,9 @@ services:
   postgresql:
     build:
       context: ./db
-    container_name: nuxt_django_postgresql.postgresql
+    container_name: nuxt-django-postgresql.postgresql
     ports:
-      - "5432:5432"
+      - 5432:5432
     environment:
       POSTGRES_DB: "mysite"
       POSTGRES_USER: "mysiteuser"
@@ -33,7 +33,7 @@ services:
 
   adminer:
     image: adminer
-    container_name: nuxt_django_postgresql.adminer
+    container_name: nuxt-django-postgresql.adminer
     restart: always
     ports:
       - 8080:8080
@@ -44,23 +44,49 @@ services:
     restart: always
     build:
       context: ./backend
-    container_name: nuxt_django_postgresql.django
+    image: nuxt-django-postgresql-django
+    container_name: nuxt-django-postgresql.django
     volumes:
       - ./backend:/app
     expose:
       - "8001"
     depends_on:
       - postgresql
-    command: uwsgi --socket :8001 --module mysite.wsgi
+      - rabbitmq
+    command: bash -c "uwsgi --socket :8001 --module mysite.wsgi"
+
+  rabbitmq:
+      container_name: nuxt-django-postgresql.rabbitmq
+      image: rabbitmq:latest
+      ports:
+        - "5672:5672"
+
+  celery:
+    image: nuxt-django-postgresql-django
+    container_name: nuxt-django-postgresql.celery
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - django
+    command: bash -c "celery -A mysite worker -l info"
+
+  celery-beat:
+    image: nuxt-django-postgresql-django
+    container_name: nuxt-django-postgresql.celery-beat
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - django
+    command: bash -c "celery -A mysite beat -l info"
 
   nuxt:
     build:
       context: ./frontend
-    container_name: nuxt_django_postgresql.nuxt
+    container_name: nuxt-django-postgresql.nuxt
     volumes:
       - ./frontend:/app
     ports:
-      - "3000:3000"
+      - 3000:3000
     depends_on:
       - django
     command: bash -c "yarn install && npm run dev"
