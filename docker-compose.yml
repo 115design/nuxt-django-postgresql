@@ -59,7 +59,7 @@ services:
       container_name: nuxt-django-postgresql.rabbitmq
       image: rabbitmq:latest
       ports:
-        - "5672:5672"
+        - 5672:5672
 
   celery:
     image: nuxt-django-postgresql-django
