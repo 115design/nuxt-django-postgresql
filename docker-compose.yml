@@ -56,10 +56,10 @@ services:
     command: bash -c "uwsgi --socket :8001 --module mysite.wsgi"
 
   rabbitmq:
-      container_name: nuxt-django-postgresql.rabbitmq
-      image: rabbitmq:latest
-      ports:
-        - 5672:5672
+    container_name: nuxt-django-postgresql.rabbitmq
+    image: rabbitmq:latest
+    ports:
+      - 5672:5672
 
   celery:
     image: nuxt-django-postgresql-django
