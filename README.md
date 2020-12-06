@@ -1,5 +1,5 @@
 # nuxt-django-postgresql
-Nuxt.js, Django, PostgreSQL, Nginx, Docker, Adminer
+Nuxt.js, Django, PostgreSQL, Nginx, Docker, Adminer, RabbitMQ, Celery
 
 ## Installation
 
