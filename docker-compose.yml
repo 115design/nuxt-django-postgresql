@@ -89,4 +89,4 @@ services:
       - 3000:3000
     depends_on:
       - django
-    command: bash -c "yarn install && npm run dev"
+    command: bash -c "yarn run dev"
