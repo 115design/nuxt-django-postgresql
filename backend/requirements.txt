@@ -1,5 +1,5 @@
 Django==3.2.16
-uwsgiI==2.0.21
+uwsgi==2.0.21
 psycopg2==2.9.5
 
 celery==5.1.2
