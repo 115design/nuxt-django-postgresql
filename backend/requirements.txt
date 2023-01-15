@@ -1,8 +1,7 @@
-Django==2.0.8
-uwsgi==2.0.17
-psycopg2==2.7.5
-psycopg2-binary==2.7.5
+Django==3.2.16
+uwsgiI==2.0.21
+psycopg2==2.9.5
 
-celery==4.2.1
-django-celery-beat==1.1.1
-django-celery-results==1.0.1
+celery==5.1.2
+django-celery-beat==2.2.1
+django-celery-results==2.2.0

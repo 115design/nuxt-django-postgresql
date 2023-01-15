@@ -83,6 +83,9 @@ log_postgresql:
 log_nginx:
 	docker-compose logs -tf nginx
 
+log_celery:
+	docker-compose logs -tf celery
+
 shell_django:
 	docker-compose exec django python manage.py shell
 
