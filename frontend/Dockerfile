@@ -1,5 +1,9 @@
-FROM node:16.11.0
+FROM node:16-slim
 ENV HOST 0.0.0.0
-COPY . /app
+COPY ./nuxt /app
 WORKDIR /app
-RUN yarn install
+
+RUN apt-get update \
+  && apt-get install -y \
+  git \
+  vim

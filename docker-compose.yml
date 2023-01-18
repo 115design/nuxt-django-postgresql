@@ -84,9 +84,11 @@ services:
       context: ./frontend
     container_name: nuxt-django-postgresql.nuxt
     volumes:
-      - ./frontend:/app
+      - ./frontend/nuxt:/app
     ports:
       - 3000:3000
+      - 24678:24678
     depends_on:
       - django
-    command: bash -c "yarn run dev"
+    tty: true
+    command: bash -c "yarn install && yarn dev -o"
