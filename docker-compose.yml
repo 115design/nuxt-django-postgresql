@@ -2,6 +2,7 @@ version: "3.4"
 
 volumes:
   db-data:
+  rabbitmq-data:
 
 services:
   nginx:
@@ -58,6 +59,8 @@ services:
   rabbitmq:
     container_name: nuxt-django-postgresql.rabbitmq
     image: rabbitmq:latest
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
     ports:
       - 5672:5672
 
@@ -66,6 +69,11 @@ services:
     container_name: nuxt-django-postgresql.celery
     volumes:
       - ./backend:/app
+    environment:
+      DB_HOST: "postgresql"
+      DB_NAME: "mysite"
+      DB_USER: "mysiteuser"
+      DB_PASS: "mysitepass"
     depends_on:
       - django
     command: bash -c "celery -A mysite worker -l info"
@@ -75,9 +83,14 @@ services:
     container_name: nuxt-django-postgresql.celery-beat
     volumes:
       - ./backend:/app
+    environment:
+      DB_HOST: "postgresql"
+      DB_NAME: "mysite"
+      DB_USER: "mysiteuser"
+      DB_PASS: "mysitepass"
     depends_on:
       - django
-    command: bash -c "celery -A mysite beat -l info"
+    command: bash -c "celery -A mysite beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler --pidfile="
 
   nuxt:
     build:
